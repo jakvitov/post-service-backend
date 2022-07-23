@@ -1,6 +1,5 @@
 package cz.jakvitov.psservice.services.serviceimpl;
 
-import cz.jakvitov.psservice.PsServiceApplication;
 import cz.jakvitov.psservice.persistence.entity.PsUser;
 import cz.jakvitov.psservice.persistence.repo.PsUserRepository;
 import cz.jakvitov.psservice.services.service.PsUserService;
@@ -8,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -40,7 +37,7 @@ public class PsUserServiceImpl implements PsUserService {
     }
 
     @Override
-    public PsUser getPsUserById(Long id) {
+    public PsUser getPsUserById(Long id) throws EntityNotFoundException{
         return psUserRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
     }
 
