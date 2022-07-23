@@ -1,7 +1,6 @@
 package cz.jakvitov.psservice.controllers;
 
 import cz.jakvitov.psservice.persistence.entity.PsUser;
-import cz.jakvitov.psservice.services.service.PsUserService;
 import cz.jakvitov.psservice.services.serviceimpl.PsUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
