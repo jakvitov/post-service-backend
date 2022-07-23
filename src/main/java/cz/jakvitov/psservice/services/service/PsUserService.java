@@ -18,4 +18,5 @@ public interface PsUserService {
     PsUser getPsUserById(Long id);
 
     PsUser fillPsUser(String nick, String pswdHash);
+    PsUser getPsUserByNamePswd(String pswdHash, String Nick);
 }

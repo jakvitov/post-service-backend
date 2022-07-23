@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,5 +49,16 @@ public class PsUserServiceImpl implements PsUserService {
         user.setUserPswdHash(pswdHash);
         user.setUserCreatedTime(LocalDateTime.now());
         return user;
+    }
+
+    //todo rewrite this to be less ugly :)
+    @Override
+    public PsUser getPsUserByNamePswd (String nick, String pswdHash) throws EntityNotFoundException {
+        List<PsUser> users = (List<PsUser>) psUserRepository.findByUserNick(nick);
+        if (users.size() == 0 || users.get(0).getUserPswdHash().equals(pswdHash) == false){
+            throw new EntityNotFoundException("No user with given nick and password!");
+        }
+        //Due to nick being unique in database, the list is always 1 item long
+        return (users.get(0));
     }
 }
