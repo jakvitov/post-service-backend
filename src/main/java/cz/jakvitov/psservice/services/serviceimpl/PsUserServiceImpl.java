@@ -1,8 +1,10 @@
 package cz.jakvitov.psservice.services.serviceimpl;
 
+import cz.jakvitov.psservice.controllers.authorization.UserAuthorizationController;
 import cz.jakvitov.psservice.persistence.entity.PsUser;
 import cz.jakvitov.psservice.persistence.repo.PsUserRepository;
 import cz.jakvitov.psservice.services.service.PsUserService;
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,9 @@ public class PsUserServiceImpl implements PsUserService {
 
     @Autowired
     PsUserRepository psUserRepository;
+
+    private static final Logger logger = Logger.getLogger(PsUserServiceImpl.class);
+
 
     @Override
     public PsUser savePsUser(PsUser user) throws org.hibernate.exception.ConstraintViolationException {
@@ -63,6 +68,7 @@ public class PsUserServiceImpl implements PsUserService {
         }
         //Someone must have changed the user entity by default, this should never happen
         else {
+            logger.error("{verifyLoginInfo} More users returned by one nick");
             throw new RuntimeException("More users returned by nick.");
         }
     }

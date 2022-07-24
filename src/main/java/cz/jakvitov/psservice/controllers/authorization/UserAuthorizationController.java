@@ -43,11 +43,10 @@ public class UserAuthorizationController {
     public UserLoginInfo verifyLoginInfo(@RequestBody UserLoginInfo loginInfo) {
         try {
             if (psUserService.verifyLoginInfo(loginInfo.getName(), loginInfo.getPswdHash())){
-                logger.warn("logged in");
                 return loginInfo;
             }
             else {
-                logger.warn("{verifyLoginInfo} +  returned false.");
+                logger.warn("{verifyLoginInfo} returned false.");
                 throw new LoginFailedException();
             }
         }
@@ -56,7 +55,6 @@ public class UserAuthorizationController {
         }
         //Two entries in database with the same nick encountered
         catch (RuntimeException RE){
-            logger.error("{verifyLoginInfo}" + RE.getStackTrace());
             throw new LoginFailedException(RE);
         }
     }
