@@ -51,14 +51,19 @@ public class PsUserServiceImpl implements PsUserService {
         return user;
     }
 
-    //todo rewrite this to be less ugly :)
+    //User nick must be unique and not null in database -> we should always get only one record back
     @Override
-    public PsUser getPsUserByNamePswd (String nick, String pswdHash) throws EntityNotFoundException {
-        List<PsUser> users = (List<PsUser>) psUserRepository.findByUserNick(nick);
-        if (users.size() == 0 || users.get(0).getUserPswdHash().equals(pswdHash) == false){
+    public boolean verifyLoginInfo (String nick, String pswdHash) throws EntityNotFoundException {
+        List<PsUser> users = psUserRepository.findByUserNick(nick);
+        if (users.size() == 0 || !users.get(0).getUserPswdHash().equals(pswdHash)){
             throw new EntityNotFoundException("No user with given nick and password!");
         }
-        //Due to nick being unique in database, the list is always 1 item long
-        return (users.get(0));
+        else if (users.size() == 1 && users.get(0).getUserPswdHash().equals(pswdHash)){
+            return true;
+        }
+        //Someone must have changed the user entity by default, this should never happen
+        else {
+            throw new RuntimeException("More users returned by nick.");
+        }
     }
 }

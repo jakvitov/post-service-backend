@@ -1,7 +1,5 @@
-package cz.jakvitov.psservice.controllers;
+package cz.jakvitov.psservice.controllers.entity_controllers;
 
-import cz.jakvitov.psservice.controllers.support_objects.UserLoginInfo;
-import cz.jakvitov.psservice.exceptions.LoginFailedException;
 import cz.jakvitov.psservice.persistence.entity.PsUser;
 import cz.jakvitov.psservice.services.serviceimpl.PsUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,21 +41,4 @@ public class PsUserController {
         return true;
     }
 
-    @PostMapping("/register")
-    public PsUser registerPsUser(@RequestBody String name, @RequestBody String pswd_hash){
-        PsUser user = psUserService.fillPsUser(name, pswd_hash);
-        return psUserService.savePsUser(user);
-    }
-
-    @PostMapping("/login")
-    @ResponseBody
-    public UserLoginInfo loginPsUser(@RequestBody UserLoginInfo loginInfo) {
-        try {
-            psUserService.getPsUserByNamePswd(loginInfo.getName(), loginInfo.getPswdHash());
-            return loginInfo;
-        }
-        catch (EntityNotFoundException ENFE){
-            throw new LoginFailedException(ENFE);
-        }
-    }
 }

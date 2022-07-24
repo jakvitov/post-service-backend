@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(code= HttpStatus.NOT_FOUND, reason = "Invalid login information")
 public class LoginFailedException extends RuntimeException {
 
-    private String message;
     public LoginFailedException(Throwable t) {
         super(t);
     }
+
+    public LoginFailedException(){
+    };
 }
