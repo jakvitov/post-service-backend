@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,6 +15,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.io.IOException;
+
+/**
+ *  <p>Setup class for other api tests to be inherited from</p>
+ */
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = PsServiceApplication.class)
@@ -36,6 +41,7 @@ public abstract class AbstractTest {
             throws JsonMappingException, JsonParseException, IOException {
 
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
         return objectMapper.readValue(json, inputClass);
     }
 
