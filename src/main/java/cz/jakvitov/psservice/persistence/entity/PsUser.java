@@ -1,5 +1,7 @@
 package cz.jakvitov.psservice.persistence.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -17,9 +19,9 @@ public class PsUser {
     /*-------------------Attributes------------------------*/
 
     @Id
-    @Column(name = "user_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    @Column(name = "user_id", updatable = false, nullable = false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long userId = 1L;
 
     @Column(name = "user_nick", unique = true)
     private String userNick;
@@ -37,7 +39,7 @@ public class PsUser {
     public PsUser() {
     }
 
-    public PsUser(long userId, String userNick, String userPswdHash, LocalDateTime userCreatedTime) {
+    public PsUser(Long userId, String userNick, String userPswdHash, LocalDateTime userCreatedTime) {
         this.userId = userId;
         this.userNick = userNick;
         this.userPswdHash = userPswdHash;
@@ -48,7 +50,7 @@ public class PsUser {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -66,10 +68,6 @@ public class PsUser {
 
     public void setUserPswdHash(String userPswdHash) {
         this.userPswdHash = userPswdHash;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public LocalDateTime getUserCreatedTime() {

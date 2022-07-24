@@ -1,6 +1,7 @@
 package cz.jakvitov.psservice.controllers.authorization;
 
 import cz.jakvitov.psservice.controllers.support_objects.UserLoginInfo;
+import cz.jakvitov.psservice.controllers.support_objects.UserRegisterInfo;
 import cz.jakvitov.psservice.exceptions.LoginFailedException;
 import cz.jakvitov.psservice.persistence.entity.PsUser;
 import cz.jakvitov.psservice.services.serviceimpl.PsUserServiceImpl;
@@ -22,8 +23,8 @@ public class UserAuthorizationController {
     private PsUserServiceImpl psUserService;
 
     @PostMapping("/register")
-    public PsUser registerPsUser(@RequestBody String name, @RequestBody String pswd_hash){
-        PsUser user = psUserService.fillPsUser(name, pswd_hash);
+    public PsUser registerPsUser(@RequestBody UserRegisterInfo registerInfo){
+        PsUser user = psUserService.fillPsUser(registerInfo.getName(), registerInfo.getPswdHash());
         return psUserService.savePsUser(user);
     }
 
