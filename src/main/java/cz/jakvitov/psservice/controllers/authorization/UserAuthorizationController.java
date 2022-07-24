@@ -6,6 +6,7 @@ import cz.jakvitov.psservice.exceptions.DuplicateNameException;
 import cz.jakvitov.psservice.exceptions.LoginFailedException;
 import cz.jakvitov.psservice.persistence.entity.PsUser;
 import cz.jakvitov.psservice.services.serviceimpl.PsUserServiceImpl;
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,8 @@ public class UserAuthorizationController {
 
     @Autowired
     private PsUserServiceImpl psUserService;
+
+    private static final Logger logger = Logger.getLogger(UserAuthorizationController.class);
 
     @PostMapping("/register")
     public PsUser registerPsUser(@RequestBody UserRegisterInfo registerInfo){
@@ -40,16 +43,20 @@ public class UserAuthorizationController {
     public UserLoginInfo verifyLoginInfo(@RequestBody UserLoginInfo loginInfo) {
         try {
             if (psUserService.verifyLoginInfo(loginInfo.getName(), loginInfo.getPswdHash())){
+                logger.warn("logged in");
                 return loginInfo;
             }
             else {
+                logger.warn("{verifyLoginInfo} +  returned false.");
                 throw new LoginFailedException();
             }
         }
         catch (EntityNotFoundException ENFE){
             throw new LoginFailedException(ENFE);
         }
+        //Two entries in database with the same nick encountered
         catch (RuntimeException RE){
+            logger.error("{verifyLoginInfo}" + RE.getStackTrace());
             throw new LoginFailedException(RE);
         }
     }
