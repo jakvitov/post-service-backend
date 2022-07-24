@@ -12,6 +12,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * @Author Jakub Vítovec
+ *  <p>Test for Rest Api for getAllPsUsersTest method.</p>
+ */
 public class GetAllPsUsersTest extends AbstractTest {
 
     @Before
