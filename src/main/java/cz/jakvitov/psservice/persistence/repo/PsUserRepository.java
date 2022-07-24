@@ -13,4 +13,5 @@ import java.util.List;
 @Repository
 public interface PsUserRepository extends JpaRepository <PsUser, Long> {
     List<PsUser> findByUserNick(String nick);
+
 }

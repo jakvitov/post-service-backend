@@ -2,6 +2,7 @@ package cz.jakvitov.psservice.controllers.authorization;
 
 import cz.jakvitov.psservice.controllers.support_objects.UserLoginInfo;
 import cz.jakvitov.psservice.controllers.support_objects.UserRegisterInfo;
+import cz.jakvitov.psservice.exceptions.DuplicateNameException;
 import cz.jakvitov.psservice.exceptions.LoginFailedException;
 import cz.jakvitov.psservice.persistence.entity.PsUser;
 import cz.jakvitov.psservice.services.serviceimpl.PsUserServiceImpl;
@@ -24,8 +25,14 @@ public class UserAuthorizationController {
 
     @PostMapping("/register")
     public PsUser registerPsUser(@RequestBody UserRegisterInfo registerInfo){
-        PsUser user = psUserService.fillPsUser(registerInfo.getName(), registerInfo.getPswdHash());
-        return psUserService.savePsUser(user);
+        try {
+            PsUser user = psUserService.fillPsUser(registerInfo.getName(), registerInfo.getPswdHash());
+            return psUserService.savePsUser(user);
+        }
+        //Signals that the username already exists
+        catch (org.springframework.dao.DataIntegrityViolationException DIVE){
+            throw new DuplicateNameException(DIVE);
+        }
     }
 
     @PostMapping("/login")

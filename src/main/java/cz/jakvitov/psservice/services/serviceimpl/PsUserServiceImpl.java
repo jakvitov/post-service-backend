@@ -22,7 +22,7 @@ public class PsUserServiceImpl implements PsUserService {
     PsUserRepository psUserRepository;
 
     @Override
-    public PsUser savePsUser(PsUser user) {
+    public PsUser savePsUser(PsUser user) throws org.hibernate.exception.ConstraintViolationException {
         return psUserRepository.save(user);
     }
 
