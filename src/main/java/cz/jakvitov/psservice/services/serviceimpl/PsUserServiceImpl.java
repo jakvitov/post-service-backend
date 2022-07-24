@@ -1,6 +1,5 @@
 package cz.jakvitov.psservice.services.serviceimpl;
 
-import cz.jakvitov.psservice.controllers.authorization.UserAuthorizationController;
 import cz.jakvitov.psservice.persistence.entity.PsUser;
 import cz.jakvitov.psservice.persistence.repo.PsUserRepository;
 import cz.jakvitov.psservice.services.service.PsUserService;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
