@@ -1,11 +1,8 @@
 package cz.jakvitov.psservice.persistence.entity;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @Author Jakub Vítovec
@@ -32,6 +29,9 @@ public class PsUser {
     @Column(name = "user_created_time")
     private LocalDateTime userCreatedTime;
 
+    @OneToMany(mappedBy = "psUser")
+    private List<PsPost> psPosts;
+
     //TODO make relations as soon as other entities are ready
 
     /*-------------------Attributes------------------------*/
@@ -39,14 +39,15 @@ public class PsUser {
     public PsUser() {
     }
 
-    public PsUser(Long userId, String userNick, String userPswdHash, LocalDateTime userCreatedTime) {
+    public PsUser(Long userId, String userNick, String userPswdHash, LocalDateTime userCreatedTime, List<PsPost> psPosts) {
         this.userId = userId;
         this.userNick = userNick;
         this.userPswdHash = userPswdHash;
         this.userCreatedTime = userCreatedTime;
+        this.psPosts = psPosts;
     }
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
@@ -76,5 +77,13 @@ public class PsUser {
 
     public void setUserCreatedTime(LocalDateTime userCreatedTime) {
         this.userCreatedTime = userCreatedTime;
+    }
+
+    public List<PsPost> getPsPosts() {
+        return psPosts;
+    }
+
+    public void setPsPosts(List<PsPost> psPosts) {
+        this.psPosts = psPosts;
     }
 }
