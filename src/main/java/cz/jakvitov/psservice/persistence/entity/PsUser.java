@@ -32,7 +32,11 @@ public class PsUser {
     @OneToMany(mappedBy = "psUser")
     private List<PsPost> psPosts;
 
-    //TODO make relations as soon as other entities are ready
+    @OneToMany(mappedBy = "psUser")
+    private List<PsPostComment> PsPostComments;
+
+    @OneToMany(mappedBy = "psUser")
+    private List<PsTopic> PsTopics;
 
     /*-------------------Attributes------------------------*/
 

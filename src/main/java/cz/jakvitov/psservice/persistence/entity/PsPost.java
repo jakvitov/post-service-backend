@@ -2,6 +2,7 @@ package cz.jakvitov.psservice.persistence.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "ps_post")
@@ -24,18 +25,26 @@ public class PsPost {
     @JoinColumn(name = "user_id", nullable = false)
     private PsUser psUser;
 
-    //todo setup relation with topics as soon as topic entity is ready
+    @ManyToOne
+    @JoinColumn(name = "topic_id", nullable = false)
+    private PsTopic psTopic;
+
+    @OneToMany(mappedBy = "psPost")
+    private List<PsPostComment> PsPostComments;
+
 
     /*-------------------Attributes------------------------*/
 
     public PsPost() {
     }
 
-    public PsPost(Long postId, String postText, LocalDateTime postCreatedTime, PsUser psUser) {
+    public PsPost(Long postId, String postText, LocalDateTime postCreatedTime, PsUser psUser, PsTopic psTopic, List<PsPostComment> psPostComments) {
         this.postId = postId;
         this.postText = postText;
         this.postCreatedTime = postCreatedTime;
         this.psUser = psUser;
+        this.psTopic = psTopic;
+        PsPostComments = psPostComments;
     }
 
     public Long getPostId() {
@@ -68,5 +77,21 @@ public class PsPost {
 
     public void setPsUser(PsUser psUser) {
         this.psUser = psUser;
+    }
+
+    public PsTopic getPsTopic() {
+        return psTopic;
+    }
+
+    public void setPsTopic(PsTopic psTopic) {
+        this.psTopic = psTopic;
+    }
+
+    public List<PsPostComment> getPsPostComments() {
+        return PsPostComments;
+    }
+
+    public void setPsPostComments(List<PsPostComment> psPostComments) {
+        PsPostComments = psPostComments;
     }
 }
