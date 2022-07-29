@@ -1,5 +1,9 @@
 package cz.jakvitov.psservice.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,6 +21,7 @@ public class PsUser {
 
     @Id
     @Column(name = "user_id", updatable = false, nullable = false)
+    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id", scope=PsUser.class)
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long userId = 1L;
 
@@ -30,12 +35,15 @@ public class PsUser {
     private LocalDateTime userCreatedTime;
 
     @OneToMany(mappedBy = "psUser")
+    @JsonManagedReference("user-post")
     private List<PsPost> psPosts;
 
     @OneToMany(mappedBy = "psUser")
+    @JsonManagedReference("user-comment")
     private List<PsPostComment> PsPostComments;
 
     @OneToMany(mappedBy = "psUser")
+    @JsonManagedReference("user-topic")
     private List<PsTopic> PsTopics;
 
     /*-------------------Attributes------------------------*/

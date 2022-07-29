@@ -1,5 +1,7 @@
 package cz.jakvitov.psservice.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -21,10 +23,12 @@ public class PsPostComment {
     private LocalDateTime postCommentCreatedTime;
 
     @ManyToOne
+    @JsonBackReference("post-comment")
     @JoinColumn(name = "post_id", nullable = false)
     private PsPost psPost;
 
     @ManyToOne
+    @JsonBackReference("user-comment")
     @JoinColumn(name = "user_id", nullable = false)
     private PsUser psUser;
 
