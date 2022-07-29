@@ -17,7 +17,6 @@ public class PsPost {
 
     @Id
     @Column(name = "post_id", updatable = false, nullable = false)
-    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id", scope=PsPost.class)
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long postId = 1L;
 

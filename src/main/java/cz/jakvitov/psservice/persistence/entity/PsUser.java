@@ -21,7 +21,6 @@ public class PsUser {
 
     @Id
     @Column(name = "user_id", updatable = false, nullable = false)
-    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id", scope=PsUser.class)
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long userId = 1L;
 

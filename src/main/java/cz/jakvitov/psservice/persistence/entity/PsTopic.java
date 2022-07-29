@@ -17,7 +17,6 @@ public class PsTopic {
 
     @Id
     @Column(name = "topic_id", updatable = false, nullable = false)
-    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id", scope=PsTopic.class)
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long postId = 1L;
 
