@@ -1,5 +1,6 @@
 package cz.jakvitov.psservice.services.serviceimpl;
 
+import cz.jakvitov.psservice.persistence.entity.PsPost;
 import cz.jakvitov.psservice.persistence.entity.PsUser;
 import cz.jakvitov.psservice.persistence.repo.PsUserRepository;
 import cz.jakvitov.psservice.services.service.PsUserService;
@@ -40,6 +41,7 @@ public class PsUserServiceImpl implements PsUserService {
         return psUserRepository.findAll();
     }
 
+    //Returns all known details about user, his posts, topics etc.
     @Override
     public PsUser getPsUserById(Long id) throws EntityNotFoundException{
         return psUserRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
@@ -69,5 +71,10 @@ public class PsUserServiceImpl implements PsUserService {
             logger.error("{verifyLoginInfo} More users returned by one nick");
             throw new RuntimeException("More users returned by nick.");
         }
+    }
+    //todo solve cycling dependency
+    @Override
+    public List<PsPost> getUserPosts(Long userId){
+        return this.getPsUserById(userId).getPsPosts();
     }
 }

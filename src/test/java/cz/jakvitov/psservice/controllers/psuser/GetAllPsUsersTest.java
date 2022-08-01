@@ -25,8 +25,6 @@ public class GetAllPsUsersTest extends AbstractTest {
 
     @Test
     public void getAllPsUsersTest() throws Exception {
-        //User with this should always be present as one of the testing users
-        //if not, reset testing database
         final String uri = "/user/all";
 
         MvcResult result = mvc.perform(MockMvcRequestBuilders.get(uri)

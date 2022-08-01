@@ -3,13 +3,16 @@ package cz.jakvitov.psservice.services.serviceimpl;
 import cz.jakvitov.psservice.persistence.entity.PsPost;
 import cz.jakvitov.psservice.persistence.entity.PsPostComment;
 import cz.jakvitov.psservice.persistence.entity.PsTopic;
+import cz.jakvitov.psservice.persistence.repo.PsPostCommentRepository;
 import cz.jakvitov.psservice.persistence.repo.PsPostRepository;
+import cz.jakvitov.psservice.persistence.repo.PsTopicRepository;
 import cz.jakvitov.psservice.services.service.PsPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @Author Jakub Vítovec
@@ -22,6 +25,11 @@ public class PsPostServiceImpl implements PsPostService {
     @Autowired
     PsPostRepository psPostRepository;
 
+    @Autowired
+    PsTopicRepository psTopicRepository;
+
+    @Autowired
+    PsPostCommentRepository psPostCommentRepository;
 
     @Override
     public PsPost getPsPostById(Long id) {
@@ -40,14 +48,16 @@ public class PsPostServiceImpl implements PsPostService {
         return getPsPostById(id);
     }
 
+    //Return a topic of a given post (by id)
     @Override
     public PsTopic getPsPostTopic(Long id) {
-        return null;
+        return psTopicRepository.findByPostId(id);
     }
 
     @Override
     public List<PsPostComment> getPostComments(Long id) {
-        return null;
+        PsPost post = psPostRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Post not found!"));
+        return post.getPsPostComments();
     }
 
     @Override

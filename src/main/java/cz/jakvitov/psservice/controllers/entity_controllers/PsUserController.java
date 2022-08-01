@@ -1,6 +1,8 @@
 package cz.jakvitov.psservice.controllers.entity_controllers;
 
+import cz.jakvitov.psservice.persistence.entity.PsPost;
 import cz.jakvitov.psservice.persistence.entity.PsUser;
+import cz.jakvitov.psservice.services.service.PsUserService;
 import cz.jakvitov.psservice.services.serviceimpl.PsUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,10 +32,16 @@ public class PsUserController {
         }
     }
 
+    @GetMapping("/{id}/posts")
+    public List<PsPost> getPsUserPosts(@PathVariable Long id){
+        return psUserService.getUserPosts(id);
+    }
+
     @GetMapping("/all")
     public List<PsUser> getAllPsUsers(){
         return psUserService.getAllPsUser();
     }
+
 
     @DeleteMapping("/{id}")
     public Boolean deletePsUserById(@PathVariable Long id){

@@ -1,11 +1,13 @@
 package cz.jakvitov.psservice.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+/**
+ * @Author Jakub Vítovec
+ *  <h1>Entity mapping to table ps_comment</h1>
+ */
 
 @Entity
 @Table(name = "ps_post_comment")

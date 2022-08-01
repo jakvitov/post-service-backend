@@ -1,5 +1,6 @@
 package cz.jakvitov.psservice.services.service;
 
+import cz.jakvitov.psservice.persistence.entity.PsPost;
 import cz.jakvitov.psservice.persistence.entity.PsUser;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface PsUserService {
 
     PsUser fillPsUser(String nick, String pswdHash);
     boolean verifyLoginInfo(String pswdHash, String Nick);
+
+    List<PsPost> getUserPosts(Long userId);
 }

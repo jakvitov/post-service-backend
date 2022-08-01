@@ -11,5 +11,4 @@ import java.util.List;
  */
 public interface PsPostCommentRepository extends JpaRepository<PsPostComment, Long> {
 
-    public List<PsPostComment> findByPostId(Long id);
 }

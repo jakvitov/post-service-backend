@@ -1,13 +1,15 @@
 package cz.jakvitov.psservice.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+/**
+ * @Author Jakub Vítovec
+ *  <h1>Entity mapping to table ps_topic</h1>
+ */
 
 @Entity
 @Table(name = "ps_topic")
